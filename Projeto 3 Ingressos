@@ -1,0 +1,70 @@
+public class Ingresso {
+    protected int codigo;
+    protected double valor;
+
+    public Ingresso(int codigo, double valor) {
+        this.codigo = codigo;
+        this.valor = valor;
+    }
+
+    public void imprimeValor() {
+        System.out.println("Código: " + codigo + " | Valor: R$" + valor);
+    }
+}
+
+
+// Ingresso Vip herda de ingresso
+
+public class VIP extends Ingresso {
+    protected double valorAdicional;
+
+    public VIP(int codigo, double valor, double valorAdicional) {
+        super(codigo, valor);
+        this.valorAdicional = valorAdicional;
+    }
+
+    public double getValorVIP() {
+        return valor + valorAdicional;
+    }
+
+    @Override
+    public void imprimeValor() {
+        System.out.println("Código: " + codigo + " | Valor VIP: R$" + getValorVIP());
+    }
+}
+
+// Ingresso Normal herda de ingresso
+
+public class Normal extends Ingresso {
+
+    public Normal(int codigo, double valor) {
+        super(codigo, valor);
+    }
+
+    @Override
+    public void imprimeValor() {
+        System.out.println("Ingresso Normal - Código: " + codigo + " | Valor: R$" + valor);
+    }
+}
+
+// Código Main para execução
+
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Ingresso> ingressos = new ArrayList<>();
+
+        ingressos.add(new Normal(1, 50.0));
+        ingressos.add(new VIP(2, 50.0, 30.0));
+        ingressos.add(new CamaroteInferior(3, 60.0, 20.0, "Setor A - Frente ao palco"));
+        ingressos.add(new CamaroteSuperior(4, 60.0, 40.0));
+
+        System.out.println("=== Lista de Ingressos ===");
+        for (Ingresso ingresso : ingressos) {
+            ingresso.imprimeValor();
+            System.out.println();
+        }
+    }
+}
+
